@@ -1,0 +1,4 @@
+[06-Jul-2024 09:02:03 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home/simscoin/public_html/wp-includes/blocks/index.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/simscoin/public_html/wp-includes/blocks/index.php on line 8
