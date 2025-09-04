@@ -1,21 +1,42 @@
-This code is designed for WordPress to control page access.
+=== Password Protection Gateway ===
+Contributors: Ashishya Barik
+Tags: password protection, restricted access, authentication, session, custom template
+Requires at least: 5.0
+Tested up to: 6.6
+Stable tag: 1.0
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
- - There is a special page called rev1, which uses the custom template “Password Protection Gateway”.
+== Description ==
+This is a custom **Password Protection Gateway** for WordPress.  
+It restricts access to your site and allows visitors to enter a password before viewing any content.  
 
- - When a user visits the site, they can only access the home page and the rev1 page.
+The system uses **sessions** and provides access for **1 hour** after successful authentication.  
+If the session expires, users will be redirected back to the password page to re-enter the password.  
 
- - If they try to open any other page, they will be redirected to the rev1 page.
+Features:
+* Secure password gateway page
+* Authentication valid for **1 hour**
+* Session-based protection (no cookies required)
+* Blocks access to all frontend pages until password is entered
+* Allows access to admin, login, and AJAX endpoints without interruption
+* Easy setup with custom page template (`Password Protection Gateway`)
 
- - On the rev1 page, there is a password input field.
+== Installation ==
+1. Copy the `rev1.php` template file into your theme directory:  
+   `wp-content/themes/your-theme/rev1.php`
 
- - If the user enters the correct password, they will gain access to all pages on the site.
+2. Add the provided authentication code snippet into your theme’s `functions.php`.
 
- - This access lasts for 1 hour. After 1 hour, they are automatically logged out and must re-enter the password.
+3. Login to your WordPress dashboard.
 
- - In the code mentioned the static password is- Archidhomes@16
+4. Create a new page with the slug **rev1**.
 
- - Add the functions.php code to your theme's functions.php file.
+5. Assign the template **Password Protection Gateway** to this page.
 
- - Create a new template file in your theme directory called rev1.php with the provided code.
+6. Publish the page.
 
- - Create a WordPress page with the slug "rev1" and assign the "Password Protection Gateway" template to it
+7. Now, when visitors open your site, they will be redirected to the **rev1** page until they enter the correct password.
+
+== Usage ==
+- Default password is:  
