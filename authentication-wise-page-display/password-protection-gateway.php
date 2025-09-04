@@ -17,8 +17,20 @@ if (isset($_POST['password'])) {
         $_SESSION['authenticated'] = true;
         $_SESSION['auth_time'] = time();
         
-        // Redirect to the originally requested page or homepage
-        $redirect_url = isset($_SESSION['requested_page']) ? $_SESSION['requested_page'] : home_url();
+        // Check if the requested page is an admin URL or not a frontend page
+        $redirect_url = home_url('/home-1/'); // Default redirect
+        
+        if (isset($_SESSION['requested_page']) && !empty($_SESSION['requested_page'])) {
+            $requested = $_SESSION['requested_page'];
+            
+            // Only redirect to frontend pages, not admin or AJAX URLs
+            if (strpos($requested, '/wp-admin/') === false && 
+                strpos($requested, 'admin-ajax.php') === false &&
+                strpos($requested, 'wp-login.php') === false) {
+                $redirect_url = $requested;
+            }
+        }
+        
         wp_redirect($redirect_url);
         exit;
     } else {
@@ -31,6 +43,12 @@ $is_authenticated = isset($_SESSION['authenticated']) &&
                    $_SESSION['authenticated'] && 
                    (time() - $_SESSION['auth_time']) < 3600;
 
+// If already authenticated, redirect to home-1
+if ($is_authenticated) {
+    wp_redirect(home_url('/home-1/'));
+    exit;
+}
+
 // We're creating a complete HTML document, so we won't use get_header() or get_footer()
 ?>
 <!DOCTYPE html>
@@ -39,7 +57,7 @@ $is_authenticated = isset($_SESSION['authenticated']) &&
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Required | <?php bloginfo('name'); ?></title>
-    <style>
+        <style>
         /* Hide all theme elements for a clean login interface */
         #cookie-overlay, #cookie-popup, header#site-header, .page-header, 
         footer#site-footer, .sticky-icons, .site-navigation, .breadcrumbs {
@@ -230,7 +248,7 @@ $is_authenticated = isset($_SESSION['authenticated']) &&
     </div>
     
     <div class="password-form">
-        <form method="post">
+        <form method="post" action="">
             <div class="form-group">
                 <label for="password-input">Enter Password</label>
                 <input type="password" id="password-input" name="password" required 

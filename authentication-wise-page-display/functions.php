@@ -25,15 +25,23 @@ function handle_authentication_redirect() {
     // Get password page path
     $rev1_path = 'rev1'; // The slug of your password page
     
-    // Always allow access to homepage and password page
-    if ($current_path === $home_path || $current_path === $rev1_path) {
+    // Always allow access to homepage, password page, and certain WordPress files
+    if ($current_path === $home_path || 
+        $current_path === $rev1_path ||
+        strpos($current_url, '/wp-admin/') !== false ||
+        strpos($current_url, 'admin-ajax.php') !== false ||
+        strpos($current_url, 'wp-login.php') !== false) {
         return; // No redirect needed for these pages
     }
     
     // If not authenticated, redirect to password page
     if (!$is_authenticated) {
-        // Store requested page for redirect after authentication
-        $_SESSION['requested_page'] = $current_url;
+        // Only store frontend pages, not admin or AJAX URLs
+        if (strpos($current_url, '/wp-admin/') === false && 
+            strpos($current_url, 'admin-ajax.php') === false &&
+            strpos($current_url, 'wp-login.php') === false) {
+            $_SESSION['requested_page'] = $current_url;
+        }
         
         // Redirect to password page
         wp_redirect(home_url('/' . $rev1_path));
