@@ -1,0 +1,14 @@
+/* Custom Product Modal Styles */
+#customProductModal .modal-content {
+    border-radius: 10px;
+}
+#customProductModal .modal-header {
+    border-bottom: 1px solid #eee;
+}
+#customProductModal .modal-title {
+    font-weight: 600;
+}
+#customProductModal img {
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
