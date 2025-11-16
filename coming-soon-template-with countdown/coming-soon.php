@@ -2,7 +2,7 @@
 
 <style>
 .comg-soon-wrapper {
-    background: #0b1320;
+    background: #d7b271;
     color: #fff;
     text-align: center;
     font-family: Arial, sans-serif;
@@ -32,7 +32,7 @@
     color: #dfdfdf;
 }
 .head-two span {
-    color: #fdd835;
+    color: #60313a;
 }
 .pgph {
     color: #fff;
@@ -55,7 +55,7 @@
 .time-box p {
     margin: 0;
     font-size: 14px;
-    color: #fdd835;
+    color: #60313a;
 }
 @media (max-width: 576px) {
     h1 {
@@ -69,7 +69,7 @@
     }
 }
 .count-font-main {
-    color: #a82323;
+    color: #60313a;
 }
 </style>
 
@@ -78,7 +78,7 @@
     <div class="logo">⚙️</div>
 
     <!-- Heading -->
-    <h2 class="head-one">We Are Tunning</h2>
+    <h2 class="head-one">We Are Tuning</h2>
     <h1 class="head-two">Our <span>Website.</span></h1>
     <p class="pgph">This page is currently under construction but we are working hard to bring you the new design.</p>
 
@@ -104,18 +104,16 @@
 </div>
 
 <?php
-// Get current WordPress server timestamp
-$current_time = current_time('timestamp');
-// Set countdown start time (when the page was first launched)
-// You can set this manually or store in DB. For now, assume we start from now:
-$start_time = strtotime("2025-09-05 00:00:00"); // replace with your fixed launch date
-$end_time = $start_time + (15 * 24 * 60 * 60); // 15 days after start
+// Get current WordPress server timestamp (in seconds)
+$current_time = current_time('timestamp', true); // true = GMT
+// Set countdown end date (15 days from now)
+$end_time = strtotime("+15 days", $current_time);
 ?>
 
 <!-- Countdown Script -->
 <script>
 (function(){
-    let endTime = <?php echo $end_time; ?> * 1000; // JS uses milliseconds
+    let endTime = <?php echo (int)$end_time; ?> * 1000; // Convert to milliseconds
 
     function updateCountdown() {
         let now = new Date().getTime();
